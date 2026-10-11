@@ -4,7 +4,6 @@ import { Hero } from "@/components/hero";
 import { Section, SectionHeading } from "@/components/section";
 import { ExploreMoreSection } from "@/components/explore-more-section";
 import {
-  CategoryGrid,
   CityDiscovery,
   CommercialSection,
   FeaturedProperties,
