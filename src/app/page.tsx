@@ -10,18 +10,15 @@ import {
   FeaturedProperties,
   InsightsPreview,
   NewProjectsSection,
-  RecentlyAddedProperties,
 } from "@/components/sections-discovery";
 
 import { CtaSection, InvestmentSection, WhyEstateWx } from "@/components/sections-editorial";
-import { DealersSlider } from "@/components/dealers-slider";
 import { PopularSearches } from "@/components/popular-searches";
 import {
   getCities,
   getCityListingCounts,
   getDealerShowcase,
   getPlatformStats,
-  getPropertyCategoryCounts,
   getPosts,
   getPopularSearches,
   getProjects,
@@ -30,6 +27,7 @@ import {
 import { buildMetadata } from "@/lib/seo";
 import { HomeExploreProperties } from "@/components/home-explore-properties";
 import { RecentProperties } from "@/components/recent-properties";
+import { HomepageGrowthSections } from "@/components/homepage-growth-sections";
 
 export const metadata: Metadata = buildMetadata({
   title: "Properties Pak — Property for Sale & Rent in Pakistan | Pakistan Real Estate",
@@ -61,7 +59,6 @@ export default async function HomePage() {
     stats,
     featured,
     discovery,
-    categoryCounts,
     cities,
     cityCounts,
     projects,
@@ -75,7 +72,6 @@ export default async function HomePage() {
     getPlatformStats(),
     searchProperties({ featured: true, verified: true, pageSize: 8 }),
     searchProperties({ sort: "newest", pageSize: 16 }),
-    getPropertyCategoryCounts(),
     getCities(),
     getCityListingCounts(),
     getProjects(8),
@@ -91,14 +87,11 @@ export default async function HomePage() {
     <div className="home-page">
       <Hero />
 
-      {/* Keep the dealer showcase and Properties Pak tools near the hero, as in the original layout. */}
-      <DealersSlider dealers={showcaseDealers} />
+      {/* Conversion-focused sections: categories, new listings, verified dealers and owner onboarding. */}
+      <HomepageGrowthSections recentProperties={discovery.items} dealers={showcaseDealers} />
       <ExploreMoreSection />
 
-      <CategoryGrid counts={categoryCounts} />
-      <RecentlyAddedProperties properties={discovery.items} />
-
-      {/* Keep featured inventory after the new listings and preserve the separate, locally viewed list. */}
+      {/* Preserve featured inventory and the separate, locally viewed list. */}
       <FeaturedProperties properties={featured.items} total={featured.total} />
       <RecentProperties />
 
