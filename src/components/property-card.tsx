@@ -21,11 +21,13 @@ export function PropertyCard({
   priority = false,
   className = "",
   compact = false,
+  propertyTypeBelowPrice = false,
 }: {
   property: Property | PropertyWithDealer;
   priority?: boolean;
   className?: string;
   compact?: boolean;
+  propertyTypeBelowPrice?: boolean;
 }) {
   const dealerVerified = Boolean((property as PropertyWithDealer).dealerVerified);
   const listingVerified = dealerVerified || Boolean(property.verified);
@@ -80,11 +82,11 @@ export function PropertyCard({
 
       <div className={`flex min-w-0 flex-1 flex-col ${compact ? "p-3" : "p-5"}`}>
         {/* Compact card details stay lean so the listing photo remains prominent. */}
-        <div className={`property-card-price-block flex min-w-0 ${compact ? "flex-wrap items-center justify-between gap-x-2 gap-y-1" : "flex-wrap items-start justify-between gap-3"}`}>
+        <div className={`property-card-price-block flex min-w-0 ${propertyTypeBelowPrice ? "flex-col items-start gap-1" : compact ? "flex-wrap items-center justify-between gap-x-2 gap-y-1" : "flex-wrap items-start justify-between gap-3"}`}>
           <p className={`font-sans font-bold leading-tight tracking-[-0.03em] text-navy-900 ${compact ? "text-base" : "text-[1.28rem]"}`}>
             {formatPrice(property.price, property.priceUnit)}
           </p>
-          <span className={`max-w-full rounded-md bg-mist font-semibold uppercase tracking-[0.08em] text-ink-muted ${compact ? "px-1.5 py-0.5 text-[0.75rem]" : "px-2 py-1 text-[0.75rem]"} ${compact ? "" : "mt-0.5"}`}>
+          <span className={`max-w-full rounded-md bg-mist font-semibold uppercase tracking-[0.08em] text-ink-muted ${compact ? "px-1.5 py-0.5 text-[0.75rem]" : "px-2 py-1 text-[0.75rem]"} ${compact || propertyTypeBelowPrice ? "" : "mt-0.5"}`}>
             {property.propertyType}
           </span>
         </div>
